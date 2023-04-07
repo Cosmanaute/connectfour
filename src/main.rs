@@ -1,4 +1,4 @@
-use std::{io::{self, Write}, sync::RwLockWriteGuard};
+use std::io::{self, Write};
 
 struct Board {
     grid: [[char; 7]; 6 ],
@@ -53,13 +53,15 @@ impl Board {
     return false;
 }
 
-
 }
+
 fn main() {
     
     let mut board = Board::new();
     let mut current_player = 'O';
 
+    print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
+    
     loop {
         board.display();
         
@@ -68,14 +70,31 @@ fn main() {
         io::stdout().flush().unwrap();
         let mut input = String::new();
         io::stdin().read_line(&mut input).expect("Could not read line");
+
+        if input.len() != 2 {
+            print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
+            println!("Invalid input");
+            continue;
+        }
+
         let col: usize = input.trim().parse().unwrap();
 
         board.place_mark(col - 1, current_player);
-
+        
         if board.check_for_win(current_player) {
+            print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
             board.display();
             println!("{} won the game!", current_player);
             break;
+        }
+
+        if current_player == 'X'{
+            current_player = 'O';
+            print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
+        }
+        else {
+            current_player = 'X';
+            print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
         }
 
     }
