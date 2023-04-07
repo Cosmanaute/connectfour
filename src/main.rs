@@ -14,7 +14,7 @@ impl Board {
     fn display(&self) {
         for (i, row) in self.grid.iter().enumerate() {
             for col in row.iter() {
-                print!("{}", col);
+                print!(" {}", col);
             }
             println!("");
         }
@@ -62,7 +62,7 @@ impl Board {
 fn main() {
     
     let mut board = Board::new();
-    let mut current_player = 'O';
+    let mut current_player = '$';
 
     //sends escape sequence that clears the terminal
     print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
@@ -96,12 +96,12 @@ fn main() {
             break;
         }
 
-        if current_player == 'X'{
-            current_player = 'O';
+        if current_player == '@'{
+            current_player = '$';
             print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
         }
         else {
-            current_player = 'X';
+            current_player = '@';
             print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
         }
     }
