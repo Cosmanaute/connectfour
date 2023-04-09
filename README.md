@@ -1,7 +1,7 @@
 # Connectfour in rust
  
  Made for linux. 
- may have problems 
+ May have problems 
  working on windows.
  
 ## How to play
