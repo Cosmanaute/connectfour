@@ -88,7 +88,7 @@ fn main() {
 
         if col < 1 || col > 7 {
             print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
-            println!("May be less than 1 or greater than 7!");
+            println!("May not be less than 1 or greater than 7!");
             continue;
         }
 
