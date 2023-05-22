@@ -14,7 +14,7 @@ impl Board {
     fn display(&self) {
         for (i, row) in self.grid.iter().enumerate() {
             for col in row.iter() {
-                print!(" {}", col);
+                print!(" {} ", col);
             }
             println!("");
         }
@@ -76,16 +76,21 @@ fn main() {
         io::stdout().flush().unwrap();
         let mut input = String::new();
         io::stdin().read_line(&mut input).expect("Could not read line");
-
-        //checks if you inputet more than one character
-        if input.len() != 2 {
+        
+        if input.trim().parse::<i32>().is_err() {
             print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
-            println!("Invalid input");
+            println!("Must be numeric!");
             continue;
         }
 
         //parses the input(string) to a usize(u64/u32)
         let col: usize = input.trim().parse().unwrap();
+
+        if col < 1 || col > 7 {
+            print!("{esc}[2J{esc}[1;1H", esc = 27 as char); 
+            println!("May be less than 1 or greater than 7!");
+            continue;
+        }
 
         board.place_mark(col - 1, current_player);
         
